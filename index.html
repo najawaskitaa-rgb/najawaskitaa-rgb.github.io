@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naja Waskita Putri — Hello, I'm Naja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #fdf8f2;
+      --warm: #f5ede0;
+      --peach: #f2c4a0;
+      --terracotta: #d4785a;
+      --rust: #b85c3a;
+      --sage: #8aab8c;
+      --sage-light: #c5dac6;
+      --navy: #2b3454;
+      --text: #2b2218;
+      --text-muted: #7a6858;
+      --accent: #e8956d;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(253,248,242,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,120,90,0.12);
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      color: var(--terracotta);
+      text-decoration: none;
+      letter-spacing: .01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; letter-spacing: .04em;
+      color: var(--text-muted); text-decoration: none; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-burger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-burger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 2.5rem 3rem;
+      gap: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-blob {
+      position: absolute; top: -80px; right: -100px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, #f2c4a055 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-bg-blob2 {
+      position: absolute; bottom: -60px; left: -80px;
+      width: 380px; height: 380px; border-radius: 50%;
+      background: radial-gradient(circle, #c5dac655 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem; color: var(--terracotta);
+      margin-bottom: .75rem;
+    }
+    .hero-name {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+    .hero-name em { font-style: italic; color: var(--terracotta); }
+    .hero-desc {
+      font-size: 1rem; line-height: 1.8;
+      color: var(--text-muted); max-width: 440px;
+      margin-bottom: 2rem;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+    .tag {
+      font-size: .75rem; font-weight: 500; letter-spacing: .04em; text-transform: uppercase;
+      padding: .35rem .9rem; border-radius: 20px;
+      border: 1.5px solid currentColor;
+    }
+    .tag-rust { color: var(--rust); background: #fdf0eb; }
+    .tag-sage { color: #4a7a4d; background: #edf5ee; }
+    .tag-navy { color: var(--navy); background: #eef0f6; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .75rem 1.6rem; border-radius: 50px;
+      font-size: .875rem; font-weight: 500; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: var(--terracotta); color: #fff;
+      box-shadow: 0 4px 16px rgba(212,120,90,.3);
+    }
+    .btn-primary:hover { box-shadow: 0 8px 24px rgba(212,120,90,.4); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1.5px solid rgba(43,34,24,.2);
+    }
+    .btn-outline:hover { border-color: var(--terracotta); color: var(--terracotta); }
+    .hero-visual {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .hero-photo-frame {
+      width: 340px; height: 420px; border-radius: 200px 200px 160px 160px;
+      background: var(--warm);
+      border: 3px solid var(--peach);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-photo-placeholder {
+      font-family: 'Instrument Serif', serif;
+      font-size: 5rem; color: var(--peach);
+      user-select: none;
+    }
+    .hero-photo-note {
+      position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
+      font-family: 'Caveat', cursive; font-size: .95rem;
+      color: var(--text-muted); white-space: nowrap;
+    }
+    .hero-float-badge {
+      position: absolute; background: #fff;
+      border-radius: 12px; padding: .6rem 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      font-size: .8rem; font-weight: 500;
+    }
+    .badge-tl { top: 20px; left: -20px; color: var(--rust); }
+    .badge-br { bottom: 40px; right: -20px; color: #4a7a4d; }
+
+    /* SECTIONS SHARED */
+    section { padding: 5rem 2.5rem; }
+    .section-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem; color: var(--terracotta);
+      margin-bottom: .5rem; display: block;
+    }
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      font-size: .95rem; color: var(--text-muted);
+      line-height: 1.8; max-width: 560px;
+      margin-bottom: 2.5rem;
+    }
+    .divider-wave {
+      width: 48px; height: 3px;
+      background: var(--terracotta);
+      border-radius: 2px; margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--warm); }
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
+    .about-text p { font-size: .975rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 1.1rem; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .fact-card {
+      background: #fff; border-radius: 14px; padding: 1.1rem 1.25rem;
+      border: 1px solid rgba(212,120,90,.12);
+    }
+    .fact-card .fact-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-bottom: .3rem; }
+    .fact-card .fact-value { font-size: .9rem; font-weight: 500; color: var(--text); }
+    .about-interests { margin-top: 2rem; }
+    .about-interests h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin-bottom: .75rem; }
+    .interest-list { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .interest-pill {
+      font-size: .8rem; padding: .3rem .85rem;
+      background: var(--cream); border-radius: 20px;
+      border: 1px solid rgba(212,120,90,.2); color: var(--text-muted);
+    }
+
+    /* PORTFOLIO */
+    #portfolio { background: var(--cream); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: #fff; border-radius: 18px;
+      padding: 1.5rem; border: 1px solid rgba(43,34,24,.07);
+      transition: transform .25s, box-shadow .25s;
+      cursor: pointer;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+    .project-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1rem;
+    }
+    .icon-rust { background: #fdf0eb; }
+    .icon-sage { background: #edf5ee; }
+    .icon-navy { background: #eef0f6; }
+    .project-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: .4rem; }
+    .project-card p { font-size: .85rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .project-tag { font-size: .7rem; padding: .2rem .65rem; border-radius: 10px; background: var(--warm); color: var(--text-muted); }
+    .project-link { font-size: .8rem; color: var(--terracotta); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: .2rem; }
+    .project-link:hover { text-decoration: underline; }
+    .portfolio-note {
+      margin-top: 2rem; padding: 1.25rem 1.5rem;
+      background: var(--warm); border-radius: 14px;
+      border-left: 3px solid var(--terracotta);
+      font-size: .875rem; color: var(--text-muted); line-height: 1.7;
+    }
+
+    /* REVIEWS */
+    #reviews { background: #2b3454; color: #fff; }
+    #reviews .section-title { color: #fff; }
+    #reviews .section-subtitle { color: rgba(255,255,255,.6); }
+    #reviews .section-label { color: var(--peach); }
+    .reviews-tabs { display: flex; gap: .5rem; margin-bottom: 2rem; }
+    .rtab {
+      padding: .5rem 1.2rem; border-radius: 20px; font-size: .85rem;
+      border: 1.5px solid rgba(255,255,255,.2);
+      background: transparent; color: rgba(255,255,255,.6);
+      cursor: pointer; transition: all .2s;
+    }
+    .rtab.active { background: var(--terracotta); color: #fff; border-color: var(--terracotta); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+    .review-card {
+      background: rgba(255,255,255,.06); border-radius: 16px;
+      padding: 1.25rem; border: 1px solid rgba(255,255,255,.1);
+      transition: background .2s;
+    }
+    .review-card:hover { background: rgba(255,255,255,.1); }
+    .review-cover {
+      width: 100%; height: 140px; border-radius: 10px;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; margin-bottom: 1rem;
+    }
+    .review-type { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--peach); margin-bottom: .3rem; }
+    .review-title { font-size: .95rem; font-weight: 500; margin-bottom: .25rem; color: #fff; }
+    .review-author { font-size: .8rem; color: rgba(255,255,255,.5); margin-bottom: .75rem; }
+    .stars { color: var(--peach); font-size: .85rem; margin-bottom: .5rem; letter-spacing: .1em; }
+    .review-text { font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.7; }
+    .reviews-cta { margin-top: 2rem; text-align: center; }
+    .btn-light {
+      background: rgba(255,255,255,.1); color: #fff;
+      border: 1.5px solid rgba(255,255,255,.25);
+    }
+    .btn-light:hover { background: rgba(255,255,255,.18); }
+
+    /* BLOG */
+    #blog { background: var(--warm); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .blog-card {
+      background: #fff; border-radius: 18px; overflow: hidden;
+      border: 1px solid rgba(43,34,24,.07);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.08); }
+    .blog-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .thumb-peach { background: #fdf0eb; }
+    .thumb-sage { background: #edf5ee; }
+    .thumb-lavender { background: #f0effe; }
+    .blog-body { padding: 1.25rem; }
+    .blog-meta { font-size: .75rem; color: var(--text-muted); margin-bottom: .5rem; display: flex; gap: .75rem; flex-wrap: wrap; }
+    .blog-cat { color: var(--terracotta); font-weight: 500; }
+    .blog-card h3 { font-size: 1rem; font-weight: 500; line-height: 1.5; margin-bottom: .5rem; }
+    .blog-card p { font-size: .83rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+    .read-more { font-size: .8rem; color: var(--terracotta); text-decoration: none; font-weight: 500; }
+    .read-more:hover { text-decoration: underline; }
+    .blog-coming-soon {
+      margin-top: 2rem; padding: 1.5rem;
+      border: 1.5px dashed rgba(212,120,90,.3); border-radius: 14px;
+      text-align: center; color: var(--text-muted); font-size: .875rem; line-height: 1.7;
+    }
+    .blog-coming-soon strong { color: var(--terracotta); }
+
+    /* CONNECT */
+    #connect { background: var(--cream); text-align: center; }
+    .connect-inner { max-width: 560px; margin: 0 auto; }
+    .connect-socials { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin: 2rem 0; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.3rem; border-radius: 50px;
+      font-size: .85rem; font-weight: 500; text-decoration: none;
+      border: 1.5px solid rgba(43,34,24,.15); color: var(--text);
+      transition: all .2s;
+    }
+    .social-btn:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+    .social-icon { font-size: 1rem; }
+    .connect-email {
+      display: inline-block; font-size: 1rem; color: var(--terracotta);
+      text-decoration: none; border-bottom: 1.5px solid var(--peach);
+      transition: border-color .2s;
+    }
+    .connect-email:hover { border-color: var(--terracotta); }
+
+    /* FOOTER */
+    footer {
+      background: var(--text); color: rgba(255,255,255,.5);
+      padding: 2rem 2.5rem; text-align: center;
+      font-size: .82rem; line-height: 1.8;
+    }
+    footer span { color: var(--peach); }
+
+    /* REVIEW TAB PANELS */
+    .rtab-panel { display: none; }
+    .rtab-panel.active { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      #hero { grid-template-columns: 1fr; padding: 5rem 1.25rem 3rem; text-align: center; }
+      .hero-visual { display: none; }
+      .hero-desc { margin: 0 auto 2rem; }
+      .hero-tags { justify-content: center; }
+      .hero-cta { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      section { padding: 3.5rem 1.25rem; }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { opacity: 0; animation: fadeUp .7s ease forwards; }
+    .delay-1 { animation-delay: .15s; }
+    .delay-2 { animation-delay: .3s; }
+    .delay-3 { animation-delay: .45s; }
+    .delay-4 { animation-delay: .6s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Naja ✦</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-blob"></div>
+  <div class="hero-bg-blob2"></div>
+  <div class="hero-text">
+    <p class="hero-eyebrow fade-up">✦ Hello, I'm</p>
+    <h1 class="hero-name fade-up delay-1">Naja Waskita<br><em>Putri</em></h1>
+    <p class="hero-desc fade-up delay-2">
+      Data analyst in progress, founder, tutor, reader, overthinker yang sedang belajar percaya dirinya sendiri. 
+      Di sini kamu bisa kenal aku — beneran.
+    </p>
+    <div class="hero-tags fade-up delay-3">
+      <span class="tag tag-rust">Data Analyst</span>
+      <span class="tag tag-sage">Founder @NexusHub</span>
+      <span class="tag tag-navy">Manifesting Generator</span>
+      <span class="tag tag-rust">Life Path 1</span>
+    </div>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#about" class="btn btn-primary">Kenali Aku →</a>
+      <a href="#portfolio" class="btn btn-outline">Lihat Portofolio</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-photo-frame">
+      <!-- GANTI dengan tag <img> foto kamu: <img src="foto.jpg" alt="Naja" style="width:100%;height:100%;object-fit:cover;"> -->
+      <span class="hero-photo-placeholder">N</span>
+    </div>
+    <p class="hero-photo-note">📍 Bululawang, Malang</p>
+    <div class="hero-float-badge badge-tl">✨ Sidoarjo-born</div>
+    <div class="hero-float-badge badge-br">🌱 Always growing</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <span class="section-label">About me</span>
+      <h2 class="section-title">Hi, I'm Naja —<br>lebih dari sekadar CV</h2>
+      <div class="divider-wave"></div>
+      <p>
+        Lahir di Sidoarjo, 15 Oktober 2001. Tumbuh besar dengan rasa penasaran yang tidak pernah berhenti — 
+        dari sejarah, pendidikan, hingga data. Sekarang aku sedang dalam perjalanan menjadi <strong>data analyst</strong>, 
+        sambil menjalankan <strong>Nexus Hub</strong>, tempat belajar yang aku bangun sendiri.
+      </p>
+      <p>
+        Backgroundku tidak linear — dan itu yang bikin aku unik. 
+        SMK Administrasi Perkantoran, S1 Pendidikan Sejarah, lalu terjun ke dunia data. 
+        Aku percaya bahwa <strong>kemampuan membaca pola dari masa lalu</strong> adalah pondasi terbaik untuk menganalisis masa kini.
+      </p>
+      <p>
+        Di luar data, aku percaya pada self-exploration — Human Design, numerologi, astrologi Jawa, tarot. 
+        Bukan karena tren, tapi karena aku genuinely penasaran tentang <strong>apa yang membuat manusia, menjadi manusia</strong>.
+      </p>
+      <!-- EDIT bagian ini sesuai kepribadianmu -->
+      <div class="about-interests">
+        <h4>Saat ini aku lagi suka</h4>
+        <div class="interest-list">
+          <span class="interest-pill">📚 Baca buku non-fiksi</span>
+          <span class="interest-pill">🎬 Nonton film indie</span>
+          <span class="interest-pill">🧘 Home workout</span>
+          <span class="interest-pill">✍️ Nulis jurnal</span>
+          <span class="interest-pill">🔮 Human Design</span>
+          <span class="interest-pill">☕ Kopi & quiet morning</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="about-facts">
+        <div class="fact-card">
+          <div class="fact-label">Domisili</div>
+          <div class="fact-value">Bululawang, Malang</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">Pendidikan</div>
+          <div class="fact-value">S1 Pend. Sejarah, GPA 3.71</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">Human Design</div>
+          <div class="fact-value">MG · 2/4 · Solar Plexus</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">Life Path</div>
+          <div class="fact-value">1 · Expression 5</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">Astrologi</div>
+          <div class="fact-value">Libra ☉ · Gemini ☽</div>
+        </div>
+        <div class="fact-card">
+          <div class="fact-label">Wuku</div>
+          <div class="fact-value">Mandhasiya · Senin Wage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <span class="section-label">Portfolio</span>
+  <h2 class="section-title">Apa yang sudah aku buat</h2>
+  <p class="section-subtitle">Dari proyek data hingga bisnis nyata — ini perjalanan belajarku yang bisa kamu lihat.</p>
+  <div class="divider-wave"></div>
+
+  <div class="portfolio-grid">
+    <!-- PROJECT 1 — Edit judul, deskripsi, link sesuai proyekmu -->
+    <div class="project-card">
+      <div class="project-icon icon-rust">📊</div>
+      <h3>FMCG Data Analysis</h3>
+      <p>Analisis data penjualan FMCG lengkap dengan SQL data cleaning, Python visualization, dan Power BI dashboard. Proyek pertama portofolioku sebagai data analyst.</p>
+      <div class="project-tags">
+        <span class="project-tag">SQL</span>
+        <span class="project-tag">Python</span>
+        <span class="project-tag">Power BI</span>
+      </div>
+      <br>
+      <a href="https://bit.ly/4sd1c3R" target="_blank" class="project-link">Lihat Proyek →</a>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project-card">
+      <div class="project-icon icon-sage">🏫</div>
+      <h3>Nexus Hub</h3>
+      <p>Bisnis bimbel dan layanan administrasi yang aku bangun dari nol di awal 2025. Melayani siswa SD & SMP dengan les privat, kelompok, dan layanan print/scan.</p>
+      <div class="project-tags">
+        <span class="project-tag">Entrepreneurship</span>
+        <span class="project-tag">Education</span>
+        <span class="project-tag">Operations</span>
+      </div>
+      <br>
+      <a href="https://www.tiktok.com/@nexus.hubmalang" target="_blank" class="project-link">Lihat TikTok →</a>
+    </div>
+
+    <!-- PROJECT 3 — Placeholder untuk proyek berikutnya -->
+    <div class="project-card" style="border: 1.5px dashed rgba(212,120,90,.25); background: var(--warm);">
+      <div class="project-icon icon-navy">🔜</div>
+      <h3>Proyek Berikutnya</h3>
+      <p>Sedang dalam pengerjaan. Stay tuned — akan ada analisis data baru yang lebih complex dalam waktu dekat.</p>
+      <div class="project-tags">
+        <span class="project-tag">Coming soon</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="portfolio-note">
+    💡 <strong>Untuk rekruter:</strong> Portofolio lengkap tersedia di <a href="https://bit.ly/4sd1c3R" style="color:var(--terracotta)">bit.ly/4sd1c3R</a> 
+    dan LinkedIn — <a href="https://linkedin.com/in/naja-waskitaputri" style="color:var(--terracotta)">linkedin.com/in/naja-waskitaputri</a>.
+    Saya terbuka untuk diskusi dan kolaborasi.
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <span class="section-label">Reviews</span>
+  <h2 class="section-title">Buku & Film yang<br>meninggalkan kesan</h2>
+  <p class="section-subtitle">Bukan review profesional — ini perspektif jujurku sebagai pembaca dan penonton.</p>
+  <div class="divider-wave" style="background:var(--peach)"></div>
+
+  <div class="reviews-tabs">
+    <button class="rtab active" onclick="switchReview('books')">📚 Buku</button>
+    <button class="rtab" onclick="switchReview('films')">🎬 Film</button>
+  </div>
+
+  <div class="rtab-panel active" id="books">
+    <div class="reviews-grid">
+      <!-- BUKU 1 — Edit sesuai buku yang sudah kamu baca -->
+      <div class="review-card">
+        <div class="review-cover">📖</div>
+        <div class="review-type">Non-fiksi</div>
+        <div class="review-title">The Body Keeps the Score</div>
+        <div class="review-author">Bessel van der Kolk</div>
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Buku ini mengubah cara aku melihat tubuh dan trauma. Bukan soal kelemahan — tapi soal bagaimana tubuh menyimpan memori yang pikiran tidak mau akui.</div>
+      </div>
+      <!-- BUKU 2 -->
+      <div class="review-card">
+        <div class="review-cover">📗</div>
+        <div class="review-type">Self-development</div>
+        <div class="review-title">Atomic Habits</div>
+        <div class="review-author">James Clear</div>
+        <div class="stars">★★★★☆</div>
+        <div class="review-text">Konsepnya simpel tapi powerful. Sistem kecil yang konsisten lebih kuat dari motivasi besar yang sesekali. Relevan banget buat aku yang masih belajar konsistensi.</div>
+      </div>
+      <!-- PLACEHOLDER -->
+      <div class="review-card" style="border: 1px dashed rgba(255,255,255,.15); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:200px;">
+        <div style="font-size:2rem;margin-bottom:.75rem">➕</div>
+        <div style="font-size:.85rem;color:rgba(255,255,255,.4)">Tambah review buku baru<br>— edit langsung di HTML</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rtab-panel" id="films">
+    <div class="reviews-grid">
+      <!-- FILM 1 — Edit sesuai film yang kamu tonton -->
+      <div class="review-card">
+        <div class="review-cover">🎥</div>
+        <div class="review-type">Drama</div>
+        <div class="review-title">Past Lives</div>
+        <div class="review-author">Celine Song, 2023</div>
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Tentang pilihan yang kita buat dan versi diri yang tidak pernah terwujud. Film ini diam-diam menohok tanpa drama berlebihan. Mungkin yang paling jujur soal cinta yang pernah aku tonton.</div>
+      </div>
+      <!-- FILM 2 -->
+      <div class="review-card">
+        <div class="review-cover">🎞️</div>
+        <div class="review-type">Animasi</div>
+        <div class="review-title">Soul</div>
+        <div class="review-author">Pixar, 2020</div>
+        <div class="stars">★★★★★</div>
+        <div class="review-text">Pertanyaan yang ditinggalkan film ini: apa yang membuat hidupmu layak untuk dijalani? Bukan pencapaian besar — tapi momen-momen kecil yang kamu anggap remeh.</div>
+      </div>
+      <!-- PLACEHOLDER -->
+      <div class="review-card" style="border: 1px dashed rgba(255,255,255,.15); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:200px;">
+        <div style="font-size:2rem;margin-bottom:.75rem">➕</div>
+        <div style="font-size:.85rem;color:rgba(255,255,255,.4)">Tambah review film baru<br>— edit langsung di HTML</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews-cta">
+    <p style="color:rgba(255,255,255,.5);font-size:.875rem;margin-bottom:1rem">
+      Semua review bersifat opini pribadi — mau diskusi? Reach out!</p>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <span class="section-label">Blog</span>
+  <h2 class="section-title">Tulisanku</h2>
+  <p class="section-subtitle">Pikiran, refleksi, dan hal-hal yang terlalu panjang untuk di-caption Instagram.</p>
+  <div class="divider-wave"></div>
+
+  <div class="blog-grid">
+    <!-- ARTIKEL 1 — Edit judul, isi, tanggal sesuai tulisanmu -->
+    <div class="blog-card">
+      <div class="blog-thumb thumb-peach">✍️</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Self-exploration</span>
+          <span>Mar 2025</span>
+        </div>
+        <h3>Apa yang Human Design ajarkan tentang cara aku membuat keputusan</h3>
+        <p>Selama ini aku pikir impulsif itu kelemahan. Ternyata, sebagai Emotional Authority, bergerak tanpa menunggu adalah sumber frustrasi terbesar hidupku...</p>
+        <a href="#" class="read-more">Baca selengkapnya →</a>
+      </div>
+    </div>
+
+    <!-- ARTIKEL 2 -->
+    <div class="blog-card">
+      <div class="blog-thumb thumb-sage">📊</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Data & Karir</span>
+          <span>Feb 2025</span>
+        </div>
+        <h3>Ganti karir dari Pendidikan Sejarah ke Data Analyst: jujur dan apa adanya</h3>
+        <p>Bukan kisah sukses yang sudah selesai — ini cerita yang masih berjalan. Tentang ragu, belajar dari nol, dan kenapa background non-IT justru jadi kekuatan...</p>
+        <a href="#" class="read-more">Baca selengkapnya →</a>
+      </div>
+    </div>
+
+    <!-- ARTIKEL 3 -->
+    <div class="blog-card">
+      <div class="blog-thumb thumb-lavender">🌱</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Refleksi</span>
+          <span>Jan 2025</span>
+        </div>
+        <h3>24 tahun: hal-hal yang aku tinggalkan dan mulai percayai</h3>
+        <p>Ulang tahun ke-23 aku rayakan dengan anxious. Ulang tahun ke-24 aku mulai dengan pertanyaan yang berbeda: bukan "sudah sampai mana?" tapi "ini versi diriku yang mana?"...</p>
+        <a href="#" class="read-more">Baca selengkapnya →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-coming-soon">
+    🚀 Blog ini masih berkembang. Artikel-artikel di atas adalah placeholder — 
+    <strong>ganti dengan tulisanmu sendiri</strong> langsung di HTML ini.<br>
+    Kedepannya bisa disambungkan ke platform blog seperti Hashnode atau Substack yang gratis.
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="connect-inner">
+    <span class="section-label">Connect</span>
+    <h2 class="section-title">Mari terhubung ✦</h2>
+    <p class="section-subtitle" style="margin:0 auto 0">
+      Mau kolaborasi, ngobrol soal data, atau sekadar say hi? 
+      Aku terbuka untuk percakapan yang bermakna.
+    </p>
+    <div class="connect-socials">
+      <a href="https://linkedin.com/in/naja-waskitaputri" target="_blank" class="social-btn">
+        <span class="social-icon">💼</span> LinkedIn
+      </a>
+      <a href="https://twitter.com/najawasky" target="_blank" class="social-btn">
+        <span class="social-icon">🐦</span> X / Twitter
+      </a>
+      <a href="https://www.tiktok.com/@najawask" target="_blank" class="social-btn">
+        <span class="social-icon">🎵</span> TikTok
+      </a>
+      <a href="https://www.tiktok.com/@nexus.hubmalang" target="_blank" class="social-btn">
+        <span class="social-icon">🏫</span> Nexus Hub
+      </a>
+    </div>
+    <p style="font-size:.875rem;color:var(--text-muted);margin-bottom:.75rem">Atau langsung email:</p>
+    <!-- GANTI dengan email kamu -->
+    <a href="mailto:najawaskitaputri@gmail.com" class="connect-email">najawaskitaputri@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Made with <span>♥</span> by Naja Waskita Putri &nbsp;·&nbsp; Bululawang, Malang</p>
+  <p style="margin-top:.3rem">
+    "Kamu tidak perlu menjadi versi terbaik dirimu setiap hari.<br>Kamu hanya perlu jujur dengan versi dirimu hari ini."
+  </p>
+</footer>
+
+<script>
+  function switchReview(type) {
+    document.querySelectorAll('.rtab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+    document.getElementById(type).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:60px;left:0;right:0;background:rgba(253,248,242,.97);padding:1.5rem 2rem;gap:1.25rem;z-index:99;border-bottom:1px solid rgba(212,120,90,.12);';
+    }
+  }
+</script>
+</body>
+</html>
